@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import React from 'react';
 import Navbar from './Navbar';
 
 function Layout({ title = 'Meme Studio', children }) {
@@ -9,7 +8,7 @@ function Layout({ title = 'Meme Studio', children }) {
         <title>{title}</title>
       </Head>
       <Navbar />
-      <div>{children}</div>
+      <div className='px-12 p-6 max-w-7xl mx-auto'>{children}</div>
     </div>
   );
 }
