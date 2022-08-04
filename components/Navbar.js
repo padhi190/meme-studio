@@ -13,8 +13,8 @@ function Navbar() {
   const { signOut, isPending, error } = useSignOut();
 
   return (
-    <header className="">
-      <div className="pt-2 h-12 flex items-center justify-between max-w-7xl mx-auto px-12">
+    <header className="sticky top-0 z-10 bg-white shadow-md">
+      <div className="pt-2 h-20 flex items-center justify-between max-w-7xl mx-auto px-12">
         <div className="flex items-center py-2 space-x-5">
           {/* Logo */}
           <Link href="/">

@@ -8,7 +8,7 @@ function LoginPage() {
       {isPending && 'Loading..'}
       <div className="flex justify-center items-center h-96">
         <button
-          className="bg-slate-300 px-6 py-2 rounded-md text-gray-900"
+          className="bg-slate-300 px-6 py-2 rounded-md text-gray-900 text-2xl"
           onClick={signInGoogle}
               >
           <img src='/google.svg' className='inline mr-4'/>
