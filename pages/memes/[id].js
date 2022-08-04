@@ -6,6 +6,7 @@ import { useCollection } from '../../lib/useCollection';
 import { UserContext } from '../../lib/usercontext';
 import { FaRegTrashAlt, FaPencilAlt, FaDownload, FaPlus } from 'react-icons/fa';
 import { useFirestore } from '../../lib/useFirestore';
+import Loader from '../../components/Loader';
 
 function ViewMemePage() {
   const user = useContext(UserContext);
@@ -31,7 +32,7 @@ function ViewMemePage() {
 
   return (
     <Layout>
-      {!isValid ? 'Error' : !documents && 'Loading...'}
+      {!isValid ? 'Error' : !documents && <Loader />}
       <div className="flex flex-wrap flex-col md:flex-row gap-3 items-center">
         {isValid &&
           documents?.map((doc) => (
@@ -68,7 +69,7 @@ function ViewMemePage() {
             </div>
           ))}
       </div>
-      {isPending && 'Loading...'}
+      {isPending && <Loader />} 
       {addError && addError.message}
       <button
         className="fixed bottom-5 right-5 bg-cyan-600 hover:opacity-90 p-6 text-white rounded-full text-3xl"
