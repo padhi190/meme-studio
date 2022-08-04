@@ -34,6 +34,7 @@ function ViewMemePage() {
     <Layout>
       {!isValid ? 'Error' : !documents && <Loader />}
       <div className="flex flex-wrap flex-col md:flex-row gap-3 items-center">
+        { !documents?.length && (<div className='text-xl'>You don't have any collection</div>)}
         {isValid &&
           documents?.map((doc) => (
             <div className="relative shadow-md" key={doc.id}>
@@ -72,7 +73,7 @@ function ViewMemePage() {
       {isPending && <Loader />} 
       {addError && addError.message}
       <button
-        className="fixed bottom-5 right-5 bg-cyan-600 hover:opacity-90 p-6 text-white rounded-full text-3xl"
+        className="fixed bottom-5 right-5 bg-cyan-600 hover:opacity-90 p-6 text-white rounded-full text-3xl md:mr-12"
         onClick={handleAddMeme}
       >
         <FaPlus />
