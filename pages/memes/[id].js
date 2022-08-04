@@ -7,6 +7,7 @@ import { UserContext } from '../../lib/usercontext';
 import { FaRegTrashAlt, FaPencilAlt, FaDownload, FaPlus } from 'react-icons/fa';
 import { useFirestore } from '../../lib/useFirestore';
 import Loader from '../../components/Loader';
+import formatRelative from 'date-fns/formatRelative';
 
 function ViewMemePage() {
   const user = useContext(UserContext);
@@ -51,7 +52,7 @@ function ViewMemePage() {
                 {doc.bottom_text}
               </p>
               <div className="flex justify-between items-center px-2 h-12 bg-slate-100 -mt-3">
-                <p>Wednesday, 4 Aug 2022</p>
+                <p>{ formatRelative(doc.createdAt.toDate(), new Date()) }</p>
                 <div className="flex justify-between items-center gap-6">
                   <p
                     className="cursor-pointer hover:text-red-600"
