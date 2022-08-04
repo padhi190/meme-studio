@@ -1,7 +1,7 @@
 import { useSignIn } from '../lib/useSignIn';
 import Layout from '../components/Layout';
 
-function loginPage() {
+function LoginPage() {
   const { signInGoogle, isPending, error } = useSignIn();
   return (
     <Layout>
@@ -20,4 +20,4 @@ function loginPage() {
   );
 }
 
-export default loginPage;
+export default LoginPage;
