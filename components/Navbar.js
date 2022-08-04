@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { useState } from 'react';
-import { db, auth } from "../firebase/config";
+import { useContext, useState } from 'react';
+import { UserContext } from '../lib/usercontext';
+import { useSignOut } from '../lib/useSignOut';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +9,8 @@ function Navbar() {
     setIsMenuOpen((isMenuOpen) => !isMenuOpen);
   };
   const closeMenu = () => setIsMenuOpen(false);
+  const {user} = useContext(UserContext);
+  const {signOut, isPending, error } = useSignOut();
 
   return (
     <header className="">
@@ -36,14 +39,25 @@ function Navbar() {
           <Link href="/memes">
             <a className="font-semibold">Memes</a>
           </Link>
-          <Link href="/memes">
-            <a className="font-semibold">Login</a>
-          </Link>
-          <Link href="/memes">
-            <a className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full">
-              Sign Up
-            </a>
-          </Link>
+          {!user ? (
+            <>
+              <Link href="/login">
+                <a className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full">
+                 Login 
+                </a>
+              </Link>
+            </>
+          ) : (
+            <>
+              <a
+                onClick={signOut}
+                className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full cursor-pointer"
+              >
+                Signout
+                {isPending && 'Logging out..'}
+              </a>
+            </>
+          )}
         </nav>
 
         {/* Hamburger button */}
@@ -84,19 +98,24 @@ function Navbar() {
           </Link>
           <Link href="/memes">
             <a className="hover:text-cyan-500" onClick={closeMenu}>
-             Memes 
+              Memes
             </a>
           </Link>
-          <Link href="/">
+          {!user ? (
+          <>
+          <Link href="/login">
             <a className="hover:text-cyan-500" onClick={closeMenu}>
               Login
             </a>
           </Link>
-          <Link href="/">
+          </>
+          ) : (
+            <Link href="/">
             <a className="hover:text-cyan-500" onClick={closeMenu}>
-              Sign up
+              Sign out
             </a>
-          </Link>
+          </Link>   
+          )}
         </div>
       </div>
     </header>
