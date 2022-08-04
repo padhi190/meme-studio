@@ -15,7 +15,7 @@ function ViewMemePage() {
     <Layout>
       {!isValid ? 'Error' : !documents && 'Loading...'}
       {isValid && documents?.map(doc => (
-        <img src={ doc.img_url } className='h-64'/>
+        <img src={ doc.img_url } className='h-64' key={doc.id}/>
       ))}
     </Layout>
   );
