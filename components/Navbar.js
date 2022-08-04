@@ -9,8 +9,9 @@ function Navbar() {
     setIsMenuOpen((isMenuOpen) => !isMenuOpen);
   };
   const closeMenu = () => setIsMenuOpen(false);
-  const {user} = useContext(UserContext);
-  const {signOut, isPending, error } = useSignOut();
+  const user = useContext(UserContext);
+  const { signOut, isPending, error } = useSignOut();
+  console.log(user);
 
   return (
     <header className="">
@@ -43,17 +44,25 @@ function Navbar() {
             <>
               <Link href="/login">
                 <a className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full">
-                 Login 
+                  Login
                 </a>
               </Link>
             </>
           ) : (
             <>
+              <img
+                className="h-8 rounded-full inline"
+                src={user.photoURL}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null; // prevents looping
+                  currentTarget.src = '/profile_pic.svg';
+                }}
+              />
               <a
                 onClick={signOut}
                 className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full cursor-pointer"
               >
-                Signout
+                <p>Sign out</p>
                 {isPending && 'Logging out..'}
               </a>
             </>
@@ -102,19 +111,25 @@ function Navbar() {
             </a>
           </Link>
           {!user ? (
-          <>
-          <Link href="/login">
-            <a className="hover:text-cyan-500" onClick={closeMenu}>
-              Login
-            </a>
-          </Link>
-          </>
+            <>
+              <Link href="/login">
+                <a className="hover:text-cyan-500" onClick={closeMenu}>
+                  Login
+                </a>
+              </Link>
+            </>
           ) : (
             <Link href="/">
-            <a className="hover:text-cyan-500" onClick={closeMenu}>
-              Sign out
-            </a>
-          </Link>   
+              <a
+                className="hover:text-cyan-500"
+                onClick={() => {
+                  signOut();
+                  closeMenu();
+                }}
+              >
+                Sign out
+              </a>
+            </Link>
           )}
         </div>
       </div>
