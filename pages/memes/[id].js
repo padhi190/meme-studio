@@ -34,7 +34,7 @@ function ViewMemePage() {
     <Layout>
       {!isValid ? 'Error' : !documents && <Loader />}
       <div className="flex flex-wrap flex-col md:flex-row gap-3 items-center">
-        { !documents?.length && (<div className='text-xl'>You don't have any collection</div>)}
+        { !documents?.length && (<div className='text-xl'>You don&apos;t have any collection</div>)}
         {isValid &&
           documents?.map((doc) => (
             <div className="relative shadow-md" key={doc.id}>
