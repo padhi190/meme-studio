@@ -11,7 +11,6 @@ function Navbar() {
   const closeMenu = () => setIsMenuOpen(false);
   const user = useContext(UserContext);
   const { signOut, isPending, error } = useSignOut();
-  console.log(user);
 
   return (
     <header className="">
@@ -37,9 +36,6 @@ function Navbar() {
 
         {/* Top right menu */}
         <nav className="hidden md:flex items-center pt-1 gap-5">
-          <Link href="/memes">
-            <a className="font-semibold">Memes</a>
-          </Link>
           {!user ? (
             <>
               <Link href="/login">
@@ -50,6 +46,9 @@ function Navbar() {
             </>
           ) : (
             <>
+              <Link href={`/memes/${user?.uid}`}>
+                <a className="font-semibold">Memes</a>
+              </Link>
               <img
                 className="h-8 rounded-full inline"
                 src={user.photoURL}
@@ -105,11 +104,6 @@ function Navbar() {
               Pricing
             </a>
           </Link>
-          <Link href="/memes">
-            <a className="hover:text-cyan-500" onClick={closeMenu}>
-              Memes
-            </a>
-          </Link>
           {!user ? (
             <>
               <Link href="/login">
@@ -119,17 +113,24 @@ function Navbar() {
               </Link>
             </>
           ) : (
-            <Link href="/">
-              <a
-                className="hover:text-cyan-500"
-                onClick={() => {
-                  signOut();
-                  closeMenu();
-                }}
-              >
-                Sign out
-              </a>
-            </Link>
+            <>
+              <Link href={`/memes/${user?.uid}`}>
+                <a className="hover:text-cyan-500" onClick={closeMenu}>
+                  Memes
+                </a>
+              </Link>
+              <Link href="/">
+                <a
+                  className="hover:text-cyan-500"
+                  onClick={() => {
+                    signOut();
+                    closeMenu();
+                  }}
+                >
+                  Sign out
+                </a>
+              </Link>
+            </>
           )}
         </div>
       </div>
