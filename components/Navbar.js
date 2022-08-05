@@ -47,7 +47,7 @@ function Navbar() {
           ) : (
             <>
               <Link href={`/memes/${user?.uid}`}>
-                <a className="font-semibold">Memes</a>
+                <a className="font-semibold">My Collection</a>
               </Link>
               <img
                 className="h-8 rounded-full inline"
@@ -116,7 +116,7 @@ function Navbar() {
             <>
               <Link href={`/memes/${user?.uid}`}>
                 <a className="hover:text-cyan-500" onClick={closeMenu}>
-                  Memes
+                  My Collection
                 </a>
               </Link>
               <Link href="/">

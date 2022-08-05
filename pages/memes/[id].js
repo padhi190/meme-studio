@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Layout from '../../components/Layout';
 import { useCollection } from '../../lib/useCollection';
 import { UserContext } from '../../lib/usercontext';
@@ -8,8 +8,10 @@ import { FaRegTrashAlt, FaPencilAlt, FaDownload, FaPlus } from 'react-icons/fa';
 import { useFirestore } from '../../lib/useFirestore';
 import Loader from '../../components/Loader';
 import formatRelative from 'date-fns/formatRelative';
+import Modal from '../../components/Modal';
 
 function ViewMemePage() {
+  const [showModal, setShowModal] = useState(false);
   const user = useContext(UserContext);
   const router = useRouter();
   const isValid = user && user?.uid === router.query.id;
@@ -22,6 +24,7 @@ function ViewMemePage() {
     isPending,
     error: addError,
   } = useFirestore(`users/${user?.uid}/memes`);
+
   const handleAddMeme = () => {
     const doc = {
       top_text: 'One does not simply',
@@ -29,13 +32,16 @@ function ViewMemePage() {
       img_url: 'https://i.imgflip.com/1bij.jpg',
     };
     addDoc(doc);
+    setShowModal(false);
   };
 
   return (
     <Layout>
       {!isValid ? 'Error' : !documents && <Loader />}
       <div className="flex flex-wrap flex-col md:flex-row gap-3 items-center">
-        { !documents?.length && (<div className='text-xl'>You don&apos;t have any collection</div>)}
+        {!documents?.length && (
+          <div className="text-xl">You don&apos;t have any collection</div>
+        )}
         {isValid &&
           documents?.map((doc) => (
             <div className="relative shadow-md" key={doc.id}>
@@ -52,7 +58,7 @@ function ViewMemePage() {
                 {doc.bottom_text}
               </p>
               <div className="flex justify-between items-center px-2 h-12 bg-slate-100 -mt-3">
-                <p>{ formatRelative(doc.createdAt.toDate(), new Date()) }</p>
+                <p>{formatRelative(doc.createdAt.toDate(), new Date())}</p>
                 <div className="flex justify-between items-center gap-6">
                   <p
                     className="cursor-pointer hover:text-red-600"
@@ -71,14 +77,18 @@ function ViewMemePage() {
             </div>
           ))}
       </div>
-      {isPending && <Loader />} 
+      {isPending && <Loader />}
       {addError && addError.message}
       <button
         className="fixed bottom-5 right-5 bg-cyan-600 hover:opacity-90 p-6 text-white rounded-full text-3xl md:mr-12"
-        onClick={handleAddMeme}
+        onClick={() => setShowModal(true)}
       >
         <FaPlus />
       </button>
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        Meme Generator Component
+        <button onClick={handleAddMeme} className='bg-cyan-500 hover:opacity-90 px-6 py-2 w-full rounded-full text-xl text-white mt-12'> Add Meme</button>
+      </Modal>
     </Layout>
   );
 }
