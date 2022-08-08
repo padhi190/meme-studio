@@ -84,7 +84,7 @@ class MemeGenerator extends Component {
 							onChange={this.handleChange}
 						/>
 					</div>
-				<button className="font-semibold bg-cyan-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full cursor-pointer">Generate Meme</button>
+				<button className="font-semibold bg-red-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full cursor-pointer">Generate Meme</button>
 			</form>
 		</>
 	)}
