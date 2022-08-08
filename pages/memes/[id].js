@@ -9,6 +9,8 @@ import { useFirestore } from '../../lib/useFirestore';
 import Loader from '../../components/Loader';
 import formatRelative from 'date-fns/formatRelative';
 import Modal from '../../components/Modal';
+import MemeGenerator from '../../components/MemeGenerator';
+import Meme from '../../components/Meme';
 
 function ViewMemePage() {
   const [showModal, setShowModal] = useState(false);
@@ -25,12 +27,7 @@ function ViewMemePage() {
     error: addError,
   } = useFirestore(`users/${user?.uid}/memes`);
 
-  const handleAddMeme = () => {
-    const doc = {
-      top_text: 'One does not simply',
-      bottom_text: 'Make a custom meme',
-      img_url: 'https://i.imgflip.com/1bij.jpg',
-    };
+  const handleAddMeme = (doc) => {
     addDoc(doc);
     setShowModal(false);
   };
@@ -38,25 +35,14 @@ function ViewMemePage() {
   return (
     <Layout>
       {!isValid ? 'Error' : !documents && <Loader />}
-      <div className="flex flex-wrap flex-col md:flex-row gap-3 items-center">
+      <div className="flex flex-wrap flex-col md:flex-row gap-3 items-end">
         {!documents?.length && (
           <div className="text-xl">You don&apos;t have any collection</div>
         )}
         {isValid &&
           documents?.map((doc) => (
             <div className="relative shadow-md" key={doc.id}>
-              <Image
-                src={doc.img_url}
-                width={380}
-                height={256}
-                className="shadow-md"
-              />
-              <p className="absolute top-3 left-0 right-0 text-white text-4xl text-center mx-auto uppercase">
-                {doc.top_text}
-              </p>
-              <p className="absolute bottom-16 left-0 right-0 text-white text-4xl text-center mx-auto uppercase">
-                {doc.bottom_text}
-              </p>
+              <Meme img_url={doc.img_url} top_text={doc.top_text} bottom_text={doc.bottom_text} /> 
               <div className="flex justify-between items-center px-2 h-12 bg-slate-100 -mt-3">
                 <p>{formatRelative(doc.createdAt.toDate(), new Date())}</p>
                 <div className="flex justify-between items-center gap-6">
@@ -86,8 +72,7 @@ function ViewMemePage() {
         <FaPlus />
       </button>
       <Modal show={showModal} onClose={() => setShowModal(false)}>
-        Meme Generator Component
-        <button onClick={handleAddMeme} className='bg-cyan-500 hover:opacity-90 px-6 py-2 w-full rounded-full text-xl text-white mt-12'> Add Meme</button>
+        <MemeGenerator handleAddMeme={handleAddMeme} /> 
       </Modal>
     </Layout>
   );

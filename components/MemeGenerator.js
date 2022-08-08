@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as s from '../styles/MemeGenerator.module.css';
-import { handleAddMeme } from '../pages/memes/[id]';
+import Meme from './Meme';
 
 const MEME_IMAGES = [
 	'http://i.imgflip.com/1bij.jpg',
@@ -40,12 +40,12 @@ class MemeGenerator extends Component {
 		const randMemeImg = this.state.allMemeImgs[randNum].url
 		this.setState({ randomImg: randMemeImg })
 
-    const doc = {
-      top_text: this.state.topText,
-      bottom_text: this.state.bottomText,
-      img_url: this.state.randomImg,
-    };
-		handleAddMeme(doc);
+		const doc = {
+			top_text: this.state.topText,
+			bottom_text: this.state.bottomText,
+			img_url: this.state.randomImg,
+		};
+		this.props.handleAddMeme(doc);
 	}
 
 	handleChange(event) {
@@ -56,12 +56,8 @@ class MemeGenerator extends Component {
 	render() {
 		return (
 			<>
-				<div className={s.meme}>
-					<img src={this.state.randomImg} alt='' />
-					<h2 className={s.top}>{this.state.topText}</h2>
-					<h2 className={s.bottom}>{this.state.bottomText}</h2>
-				</div>
-				<form className={s.memeForm}>
+				<Meme img_url={this.state.randomImg} top_text={this.state.topText} bottom_text={this.state.bottomText} />
+				<form className={s.memeForm} onSubmit={this.handleSubmit}>
 					<div>
 						<b>TOP TEXT:</b> &nbsp;
 						<input
