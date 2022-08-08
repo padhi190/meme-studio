@@ -1,5 +1,70 @@
 
+.meme,
+.memeForm {
+    position: relative;
+}
+
+.memeForm {
+    text-align: center;
+}
+
 .meme {
-    font-size: x-large;
-    color: red;
+    margin-bottom: 15px;
+}
+
+.meme img {
+    min-width: 600px;
+    max-width: 800px;
+}
+
+.meme img,
+.memeForm div {
+    margin: 0 auto;
+}
+
+.memeForm div {
+    width: 400px;
+    text-align: left;
+    position: relative;
+    height: 50px;
+}
+
+.top, .bottom {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: impact;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: 2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    0px 2px 0 #000,
+    2px 0px 0 #000,
+    0px -2px 0 #000,
+    -2px 0px 0 #000,
+    2px 2px 5px #000;
+}
+
+.top {
+    top: 0;
+    width: 100%;
+}
+
+.bottom {
+    bottom: 0;
+    width: 100%;
+}
+
+.input {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    min-width: 200px;
+    position: absolute;
+    right: 0;
 }
