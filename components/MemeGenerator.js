@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import * as s from '../styles/MemeGenerator.module.css';
 import Meme from './Meme';
 
@@ -23,6 +24,7 @@ class MemeGenerator extends Component {
 			bottomText: "Bottom text goes here",
 			randomImg: undefined,
 			allMemeImgs: MEME_IMAGES,
+			index: 0,
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,14 +33,14 @@ class MemeGenerator extends Component {
 	componentDidMount() {
 		const randNum = Math.floor(Math.random() * this.state.allMemeImgs.length)
 		const randMemeImg = this.state.allMemeImgs[randNum];
-		this.setState({ randomImg: randMemeImg })
+		this.setState({ randomImg: randMemeImg, index: randNum });
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
 		const randNum = Math.floor(Math.random() * this.state.allMemeImgs.length)
 		const randMemeImg = this.state.allMemeImgs[randNum].url
-		this.setState({ randomImg: randMemeImg })
+		this.setState({ randomImg: randMemeImg, index: randNum })
 
 		const doc = {
 			top_text: this.state.topText,
@@ -51,6 +53,18 @@ class MemeGenerator extends Component {
 	handleChange(event) {
 		const {name, value} = event.target
 		this.setState({ [name]: value })
+	}
+
+	handleChangeImg = (dir) => {
+		let newIdx = this.state.index;
+		if (dir === 'next') {
+			newIdx = (this.state.index + 1) % this.state.allMemeImgs.length;
+		} else {
+			newIdx = (this.state.index - 1);
+			if (newIdx === -1) newIdx = this.state.allMemeImgs.length - 1;
+		}
+		const newMemeImg = this.state.allMemeImgs[newIdx];
+		this.setState({ index: newIdx, randomImg: newMemeImg });
 	}
 
 	render() {
@@ -80,7 +94,15 @@ class MemeGenerator extends Component {
 							onChange={this.handleChange}
 						/>
 					</div>
-				<button className="font-semibold bg-red-500 hover:bg-cyan-400 text-gray-50 px-6 py-2 rounded-full cursor-pointer">Generate Meme</button>
+					<div className='flex justify-end gap-5 text-xl'>
+						<a className='cursor-pointer' onClick={this.handleChangeImg}>
+							<FaArrowLeft/>
+						</a>
+						<a className='cursor-pointer' onClick={() => this.handleChangeImg('next')}>
+							<FaArrowRight/>
+						</a>
+					</div>
+				<button className="font-semibold bg-red-500 hover:bg-red-400 w-full text-gray-50 px-6 py-2 rounded-full cursor-pointer">Generate Meme</button>
 			</form>
 		</>
 	)}
