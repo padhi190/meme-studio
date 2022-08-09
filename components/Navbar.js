@@ -89,7 +89,7 @@ function Navbar() {
           } absolute flex-col space-y-8 w-full min-h-screen top-0 left-0 bottom-0 pt-36 pl-12 text-lg text-gray-50 uppercase
            bg-cyan-900 z-30`}
         >
-          <Link href="/feature">
+          <Link href="/">
             <a className="hover:text-cyan-500" onClick={closeMenu}>
               Feature
             </a>

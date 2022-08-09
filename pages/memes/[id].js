@@ -66,7 +66,7 @@ function ViewMemePage() {
       {isPending && <Loader />}
       {addError && addError.message}
       <button
-        className="fixed bottom-5 right-5 bg-cyan-600 hover:opacity-90 p-6 text-white rounded-full text-3xl md:mr-12"
+        className="fixed bottom-5 right-5 bg-cyan-600 hover:bg-cyan-500 p-6 text-white rounded-full text-3xl md:mr-12"
         onClick={() => setShowModal(true)}
       >
         <FaPlus />
