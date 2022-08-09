@@ -8,9 +8,9 @@ export default function Home() {
   };
   return (
     <Layout>
-      <div className="flex flex-col-reverse md:flex-row justify-between gap-6">
+      <div className="flex flex-col-reverse md:flex-row justify-between gap-6 mt-6">
         <div>
-          <h1 className="text-5xl font-semibold mb-8">Welcome to memestudio</h1>
+          <h1 className="text-5xl font-semibold mb-8">Welcome to meme<span className='font-extralight'>studio</span></h1>
           <p className="text-xl leading-loose mb-10">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry&apos;s standard dummy text
