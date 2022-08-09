@@ -66,10 +66,11 @@ function ViewMemePage() {
       {isPending && <Loader />}
       {addError && addError.message}
       <button
-        className="fixed bottom-5 right-5 bg-cyan-600 hover:bg-cyan-500 p-6 text-white rounded-full text-3xl md:mr-12"
+        className="fixed bottom-5 right-5 bg-orange-600 hover:bg-orange-500 p-6 text-white rounded-full text-2xl md:mr-12 flex gap-2"
         onClick={() => setShowModal(true)}
       >
         <FaPlus />
+        <p className='hidden md:inline'>Add Meme</p>
       </button>
       <Modal show={showModal} onClose={() => setShowModal(false)}>
         <MemeGenerator handleAddMeme={handleAddMeme} /> 
